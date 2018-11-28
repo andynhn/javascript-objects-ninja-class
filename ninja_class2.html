@@ -1,0 +1,101 @@
+<!-- By Andy Nguyen -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Class 2 Assignment</title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            function Ninja(name) {
+                this.name = name;
+                this.health = 100;
+                var speed = 3;
+                var strength = 3;
+                
+                this.sayName = function(){
+                    console.log(`'My ninja name is ${this.name}!`);
+                    return this;
+                }
+                this.showStats = function(){
+                    console.log(`Name: ${this.name}, Health: ${this.health}, Speed: ${speed}, Strength: ${strength}`);
+                    return this;
+                }
+                this.drinkSake = function(){
+                    console.log("This sake is amazing. I'm rejuvenated! (+10 health)")
+                    this.health = this.health + 10;
+                    return this;
+                }
+                this.punch = function(ninja){
+                    if (ninja instanceof Ninja){
+                        ninja.health = ninja.health - 5;
+                        console.log(`${ninja.name} was punched by ${this.name} and lost 5 Health!"`);
+                    } else {
+                        console.log('Invalid input. Object instance is not an instance of the Ninja object.')
+                    }
+
+                }
+                this.kick = function(ninja){
+                    if (ninja instanceof Ninja){
+                        var damage = strength*15;
+                        ninja.health = ninja.health - damage;
+                        console.log(`${ninja.name} was kicked by ${this.name}! ${this.name} has a strength of ${strength}. ${ninja.name} lost  ${damage} Health!"`);
+                    } else {
+                        console.log('Invalid input. Object instance is not an instance of the Ninja object.')
+                    }
+                    
+                }
+
+            }
+            // created a Samurai object to test functionality of input validation
+            function Samurai(name) {
+                this.name = name;
+                this.health = 200;
+                var speed = 10;
+                var strength = 10;
+            }
+            
+            var blueNinja = new Ninja("Goemon");
+            var redNinja = new Ninja("Bill");
+            var samurai1 = new Samurai("Jack");
+            redNinja.punch(blueNinja);
+            blueNinja.showStats();
+            blueNinja.punch(redNinja);
+            redNinja.showStats();
+            redNinja.drinkSake();
+            redNinja.showStats();
+            redNinja.kick(samurai1);    //should log "Invalid Input..." since Samurai1 is not an instance of the Ninja object.
+            blueNinja.showStats();
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>Assignment: Ninja Class</h1>
+    <p>Create a new object constructor called Ninja with the following attributes:</p>
+    <ul>
+        <li>name</li>
+        <li>health</li>
+        <li>speed (private)</li>
+        <li>strengt (private)</li>
+    </ul>
+    <p>Speed and strength should be 3 by default. Health should be 100 by default.</p>
+    <p>Ninja should have the following methods:</p>
+    <ul>
+        <li>sayName() - This should log that Ninja's name to the console.</li>
+        <li>showStats() - This should show the Ninja's name, strength, speed, and health.</li>
+        <li>drinkSake() - This should add +10 Health to the Ninja</li>
+    </ul>
+    <h1>Assignment: Ninja 2 Class</h1>
+    <p>Add a new method to Ninja called .punch(). This method will take another Ninja instance and subtract 5 Health from the Ninja we passed in. Your .punch() should display a console message.</p>
+    <p>Now add a method to your Ninja class called .kick(). Kick will subtract 15 Health for each point of Strength the calling Ninja has, and like .punch() will take another Ninja instance.</p>
+    <p>Update .punch() and .kick() so that they only accept Instances of Ninja. Hint: You will need to find a way to check the constructor of an instance. You will often need to consult outside documentation to find solutions for particular features.</p>
+</body>
+</html>
